@@ -1,0 +1,58 @@
+[
+    {
+        "Key": "SavingProductGroupToDatabaseNotSucceed",
+        "LocalizedValue": {
+            "en-US": "Saving product group to database not succeed",
+            "hr-HR": "Spremanje grupe produkata u bazu nije uspjelo"
+        }
+    },
+    {
+        "Key": "UsernameIsTaken",
+        "LocalizedValue": {
+            "en-US": "Username is taken",
+            "hr-HR": "Korisnicko ime zauzeto"
+        }
+    },
+    {
+        "Key": "InvalidUsernameOrPassword",
+        "LocalizedValue": {
+            "en-US": "Invalid username or password",
+            "hr-HR": "Neispravno korisnicko ime ili sifra"
+        }
+    },
+    {
+        "Key": "InvalidToken",
+        "LocalizedValue": {
+            "en-US": "Invalid token",
+            "hr-HR": "Neispravan token"
+        }
+    },
+    {
+        "Key": "ThisTokenHasNotExpiredYet",
+        "LocalizedValue": {
+            "en-US": "This token hasn't expired yet",
+            "hr-HR": "Ovaj token nije istekao jos"
+        }
+    },
+    {
+        "Key": "ThisRefreshTokenDoesNotExist",
+        "LocalizedValue": {
+            "en-US": "This refresh token does not exist",
+            "hr-HR": "Ovaj token za osvjeyavanje ne postoji"
+        }
+    },
+    {
+        "Key": "ThisRefreshTokenHasExpired",
+        "LocalizedValue": {
+            "en-US": "This refresh token has expired",
+            "hr-HR": "Ovaj token za osvjezavanje je istekao"
+        }
+    },
+    {
+        "Key": "InvalidRefreshToken",
+        "LocalizedValue": {
+            "en-US": "This refresh token is invalid",
+            "hr-HR": "Ovaj token za osvjezavanje je neispravan"
+        }
+    }
+]
