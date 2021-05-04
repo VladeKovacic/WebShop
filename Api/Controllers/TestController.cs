@@ -16,11 +16,12 @@ namespace Api.Controllers
         [HttpGet("{key}")]
         public async Task<ActionResult<string>> GetCache(string key) 
         {
-            return await _cacheService.GetCacheValueAsync(key);
+            var result = await _cacheService.GetCacheValueAsync(key);
+            return result;
         }
 
         [HttpPost]
-        public async Task<ActionResult> setCache(string key, string value) 
+        public async Task<ActionResult> SetCache(string key, string value) 
         {
             await _cacheService.SetCacheValueAsync(key, value);
             return Ok();

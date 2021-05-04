@@ -8,6 +8,6 @@ namespace Api.Interfaces
     {
         Task AddProductGroupAsync(ProductGroup productGroup);
 
-        Task<ICollection<ProductGroup>> GetProductGroupTreeAsync();
+        Task<ICollection<ProductGroup>> GetProductGroupAsync(int? parentId = null);
     }
 }

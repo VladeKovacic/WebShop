@@ -10,7 +10,6 @@ namespace Api.Entities
         public string Name { get; set; }
         public ProductGroup Parent { get; set; }
         public int? ParentId { get; set; }
-        [JsonIgnore]
         public ICollection<ProductGroup> SubProductGroups { get; set; }
         public DateTime Created { get; set; } = DateTime.UtcNow;
         public DateTime Modified { get; set; } = DateTime.UtcNow;

@@ -18,7 +18,7 @@ namespace Api.Controllers
         }
 
         [HttpGet("tree")]
-        public async Task<ActionResult<ICollection<ProductGroup>>> GetProductGroupTree()
+        public async Task<ActionResult<ICollection<ProductGroupTreeDto>>> GetProductGroupTree()
         {
             var result = await _productGroupService.GetProductGroupTreeAsync();
 

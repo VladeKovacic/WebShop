@@ -20,12 +20,10 @@ namespace Api.Data
             await _context.ProductGroups.AddAsync(productGroup);
         }
 
-        public async Task<ICollection<ProductGroup>> GetProductGroupTreeAsync()
+        public async Task<ICollection<ProductGroup>> GetProductGroupAsync(int? parentId = null)
         {
             return await _context.ProductGroups
-                .Include(x => x.SubProductGroups)
-                .ThenInclude(x => x.SubProductGroups)
-                .Where(x => x.ParentId == null)
+                .Where(x => x.ParentId == parentId)
                 .ToListAsync();
         }
     }
