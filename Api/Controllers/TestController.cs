@@ -1,0 +1,29 @@
+using System.Threading.Tasks;
+using Api.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Api.Controllers
+{
+    public class TestController : BaseApiController
+    {
+        private readonly ICacheService _cacheService;
+
+        public TestController(ICacheService cacheService)
+        {
+            _cacheService = cacheService;
+        }
+
+        [HttpGet("{key}")]
+        public async Task<ActionResult<string>> GetCache(string key) 
+        {
+            return await _cacheService.GetCacheValueAsync(key);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> setCache(string key, string value) 
+        {
+            await _cacheService.SetCacheValueAsync(key, value);
+            return Ok();
+        }
+    }
+}

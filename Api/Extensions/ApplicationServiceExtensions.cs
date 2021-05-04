@@ -6,6 +6,7 @@ using Api.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using StackExchange.Redis;
 
 namespace Api.Extensions
 {
@@ -14,6 +15,8 @@ namespace Api.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
             services.AddSingleton<ErrorLocalizer>();
+            services.AddSingleton<IConnectionMultiplexer>(x => ConnectionMultiplexer.Connect(config.GetValue<string>("REDISCLOUD_URL")));
+            services.AddSingleton<ICacheService, RedisCacheService>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.Configure<JwtSettings>(config.GetSection(JwtSettings.JwtSettingsSectionName));
             services.Configure<CloudinarySettings>(config.GetSection(CloudinarySettings.CloudinarySettingsSectionName));
