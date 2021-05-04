@@ -15,7 +15,19 @@ namespace Api.Extensions
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
             services.AddSingleton<ErrorLocalizer>();
-            services.AddSingleton<IConnectionMultiplexer>(x => ConnectionMultiplexer.Connect(config.GetValue<string>("REDISCLOUD_URL")));
+            services.AddSingleton<IConnectionMultiplexer>(x =>
+            {
+                var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+                if (env == "Development")
+                {
+                    return ConnectionMultiplexer.Connect(config.GetValue<string>("REDISCLOUD_URL"));
+                }
+                else
+                {
+                    var tokens = config["REDISCLOUD_URL"].Split(':', '@');
+                    return ConnectionMultiplexer.Connect(string.Format("{0}:{1},password={2}", tokens[3], tokens[4], tokens[2]));
+                }
+            });
             services.AddSingleton<ICacheService, RedisCacheService>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             services.Configure<JwtSettings>(config.GetSection(JwtSettings.JwtSettingsSectionName));
