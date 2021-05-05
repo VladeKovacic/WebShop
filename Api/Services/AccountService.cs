@@ -6,7 +6,6 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using Api.Data;
 using Api.Dtos;
 using Api.Entities;
 using Api.Helpers;
@@ -30,7 +29,7 @@ namespace Api.Services
         public AccountService(UserManager<AppUser> userManager, 
             SignInManager<AppUser> signInManager,
             IMapper mapper, 
-            ErrorLocalizer errorLocalizer, 
+            ErrorLocalizer errorLocalizer,
             TokenValidationParameters tokenValidationParameters,
             IOptions<JwtSettings> jwtSettings,
             IWebShopDatabase webShopDatabase)

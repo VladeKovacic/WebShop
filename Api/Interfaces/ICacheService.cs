@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 
 namespace Api.Interfaces
@@ -6,5 +7,6 @@ namespace Api.Interfaces
     {
         Task<string> GetCacheValueAsync(string key);
         Task SetCacheValueAsync(string key, string value);
+        Task<T> GetSetFromCache<T>(string key, Func<Task<T>> setCallback);
     }
 }
