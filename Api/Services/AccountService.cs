@@ -26,9 +26,9 @@ namespace Api.Services
         private readonly IOptions<JwtSettings> _jwtSettings;
         private readonly IWebShopDatabase _webShopDatabase;
 
-        public AccountService(UserManager<AppUser> userManager, 
+        public AccountService(UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
-            IMapper mapper, 
+            IMapper mapper,
             ErrorLocalizer errorLocalizer,
             TokenValidationParameters tokenValidationParameters,
             IOptions<JwtSettings> jwtSettings,
@@ -61,26 +61,26 @@ namespace Api.Services
         {
             var validatedToken = GetClaimsPrincipalFromToken(refreshDto.Token);
 
-            if(validatedToken == null) return ReturnError("InvalidToken");
+            if (validatedToken == null) return ReturnError("InvalidToken");
 
             var expiryDateUnix = long.Parse(validatedToken.Claims.Single(x => x.Type == JwtRegisteredClaimNames.Exp).Value);
 
             var expiryDateTimeUtc = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)
                 .AddSeconds(expiryDateUnix);
 
-            if(expiryDateTimeUtc > DateTime.UtcNow) return ReturnError("ThisTokenHasNotExpiredYet");
+            if (expiryDateTimeUtc > DateTime.UtcNow) return ReturnError("ThisTokenHasNotExpiredYet");
 
             var jti = validatedToken.Claims.Single(x => x.Type == JwtRegisteredClaimNames.Jti).Value;
 
             var storedRefreshToken = await _webShopDatabase.RefreshTokenRepository.GetRefreshTokenByIdAsync(refreshDto.RefreshToken);
-            
-            if(storedRefreshToken == null) return ReturnError("ThisRefreshTokenDoesNotExist");
 
-            if(DateTime.UtcNow > storedRefreshToken.ExpiredDate) return ReturnError("ThisRefreshTokenHasExpired");
+            if (storedRefreshToken == null) return ReturnError("ThisRefreshTokenDoesNotExist");
 
-            if(storedRefreshToken.Invalidated) return ReturnError("InvalidRefreshToken");
+            if (DateTime.UtcNow > storedRefreshToken.ExpiredDate) return ReturnError("ThisRefreshTokenHasExpired");
 
-            if(storedRefreshToken.JwtId != jti) return ReturnError("InvalidRefreshToken");
+            if (storedRefreshToken.Invalidated) return ReturnError("InvalidRefreshToken");
+
+            if (storedRefreshToken.JwtId != jti) return ReturnError("InvalidRefreshToken");
 
             _webShopDatabase.RefreshTokenRepository.RemoveRefreshToken(storedRefreshToken);
             await _webShopDatabase.CompleteAsync();
@@ -172,11 +172,15 @@ namespace Api.Services
 
             try
             {
-                var principle = tokenHandler.ValidateToken(token, _tokenValidationParameters, out var validatedToken);
-                if(!IsJwtWithValidSecurityAlgorithm(validatedToken)) return null;
+                var tokenValidationParameters = _tokenValidationParameters.Clone();
+                tokenValidationParameters.ValidateLifetime = false;
+
+                var principle = tokenHandler.ValidateToken(token, tokenValidationParameters, out var validatedToken);
+
+                if (!IsJwtWithValidSecurityAlgorithm(validatedToken)) return null;
                 else return principle;
             }
-            catch (Exception ex)
+            catch
             {
                 return null;
             }
