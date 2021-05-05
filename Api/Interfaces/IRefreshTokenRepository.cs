@@ -8,5 +8,6 @@ namespace Api.Interfaces
         Task<RefreshToken> GetRefreshTokenByIdAsync(string refreshToken);
         void RemoveRefreshToken(RefreshToken refreshToken);
         Task AddRefreshTokenAsync(RefreshToken refreshToken);
+        int ClearExpiredRefreshTokens();
     }
 }

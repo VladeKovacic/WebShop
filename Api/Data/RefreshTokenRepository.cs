@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Api.Entities;
 using Api.Interfaces;
@@ -14,17 +16,25 @@ namespace Api.Data
 
         public async Task AddRefreshTokenAsync(RefreshToken refreshToken)
         {
-            await _context.RefreshToken.AddAsync(refreshToken);
+            await _context.RefreshTokens.AddAsync(refreshToken);
+        }
+
+        public int ClearExpiredRefreshTokens()
+        {
+            var tokensForDeletion = _context.RefreshTokens.Where(c => c.ExpiredDate <= DateTime.Now || c.Invalidated).ToList();
+            _context.RefreshTokens.RemoveRange(tokensForDeletion);
+
+            return tokensForDeletion.Count;
         }
 
         public async Task<RefreshToken> GetRefreshTokenByIdAsync(string refreshToken)
         {
-            return await _context.RefreshToken.FindAsync(refreshToken);
+            return await _context.RefreshTokens.FindAsync(refreshToken);
         }
 
         public void RemoveRefreshToken(RefreshToken refreshToken)
         {
-            _context.RefreshToken.Remove(refreshToken);
+            _context.RefreshTokens.Remove(refreshToken);
         }
     }
 }

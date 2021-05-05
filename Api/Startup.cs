@@ -25,6 +25,7 @@ namespace Api
             services.AddControllers();
             var jwtSettings = _config.GetSection(JwtSettings.JwtSettingsSectionName).Get<JwtSettings>();
             services.AddIdentityServices(jwtSettings);
+            services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Api", Version = "v1" });
@@ -47,12 +48,21 @@ namespace Api
 
             app.UseRouting();
 
+            app.UseCors(x => x.AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials()
+                .WithOrigins("https://localhost:4200"));
+
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }

@@ -1,4 +1,5 @@
 using System;
+using Api.BackgroundTasks;
 using Api.Data;
 using Api.Helpers;
 using Api.Interfaces;
@@ -14,6 +15,8 @@ namespace Api.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
+            services.AddHostedService<RedisSubscriber>();
+            services.AddHostedService<CleanUpRefreshTokens>();
             services.AddSingleton<ErrorLocalizer>();
             services.AddSingleton<IConnectionMultiplexer>(x =>
             {

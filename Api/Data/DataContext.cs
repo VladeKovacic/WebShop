@@ -17,7 +17,7 @@ namespace Api.Data
         {
         }
 
-        public DbSet<RefreshToken> RefreshToken { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductGroup> ProductGroups { get; set; }
 

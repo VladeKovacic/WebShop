@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "RequireProductAdminRole")]
     public class ProductGroupController : BaseApiController
     {
         private readonly IProductGroupService _productGroupService;
@@ -17,12 +17,13 @@ namespace Api.Controllers
             _productGroupService = productGroupService;
         }
 
+        [AllowAnonymous]
         [HttpGet("tree")]
         public async Task<ActionResult<ICollection<ProductGroupTreeDto>>> GetProductGroupTree()
         {
             var result = await _productGroupService.GetProductGroupTreeAsync();
 
-            if(result.HasError) return BadRequest(result.Exception);
+            if (result.HasError) return BadRequest(result.Exception);
 
             return Ok(result.Result);
         }
@@ -30,11 +31,11 @@ namespace Api.Controllers
         [HttpPut]
         public async Task<ActionResult<ProductGroupDto>> AddProductGroup(ProductGroupCreateDto productGroupCreateDto)
         {
-            if(productGroupCreateDto == null || string.IsNullOrEmpty(productGroupCreateDto.Name)) return BadRequest();
+            if (productGroupCreateDto == null || string.IsNullOrEmpty(productGroupCreateDto.Name)) return BadRequest();
 
             var result = await _productGroupService.AddProductGroupAsync(productGroupCreateDto);
 
-            if(result.HasError) return BadRequest(result.Exception);
+            if (result.HasError) return BadRequest(result.Exception);
 
             return Ok(result.Result);
         }

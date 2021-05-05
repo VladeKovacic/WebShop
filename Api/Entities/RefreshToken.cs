@@ -1,9 +1,11 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Entities
 {
+    [Index(nameof(ExpiredDate), nameof(Invalidated))]
     public class RefreshToken
     {
         [Key]

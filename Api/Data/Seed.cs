@@ -10,6 +10,10 @@ namespace Api.Data
     {
         public static async Task SeedRoles(RoleManager<AppRole> roleManager)
         {
+            if(await roleManager.Roles.AnyAsync(x => x.Name == "ProductAdmin")) return;
+
+            await roleManager.CreateAsync(new AppRole {Name = "ProductAdmin"});
+
             if (await roleManager.Roles.AnyAsync()) return;
 
             var roles = new List<AppRole>
