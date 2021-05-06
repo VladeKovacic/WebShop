@@ -15,8 +15,8 @@ namespace Api.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration config)
         {
-            // services.AddHostedService<RedisSubscriber>();
-            // services.AddHostedService<CleanUpRefreshTokens>();
+            services.AddHostedService<RedisSubscriber>();
+            services.AddHostedService<CleanUpRefreshTokens>();
             services.AddSingleton<ErrorLocalizer>();
             services.AddSingleton<IConnectionMultiplexer>(x =>
             {
