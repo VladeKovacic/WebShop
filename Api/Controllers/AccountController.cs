@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
 using Api.Dtos;
 using Api.Entities;
+using Api.Errors;
+using Api.Helpers;
 using Api.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
@@ -12,9 +14,11 @@ namespace Api.Controllers
     public class AccountController : BaseApiController
     {
         private readonly IAccountService _accountService;
-        public AccountController(IAccountService accountService)
+        private readonly ErrorLocalizer _errorLocalizer;
+        public AccountController(IAccountService accountService, ErrorLocalizer errorLocalizer)
         {
             _accountService = accountService;
+            _errorLocalizer = errorLocalizer;
         }
 
         [HttpPost("register")]
@@ -30,6 +34,11 @@ namespace Api.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
+            if (string.IsNullOrEmpty(loginDto.Password) || string.IsNullOrEmpty(loginDto.Username))
+            {
+                return Unauthorized(new ApiException("EmptyUsernameOrPassword", _errorLocalizer["EmptyUsernameOrPassword"]));
+            }
+
             var result = await _accountService.LoginAsync(loginDto);
 
             if (result.HasError) return Unauthorized(result.Exception);
