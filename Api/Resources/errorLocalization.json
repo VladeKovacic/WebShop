@@ -54,5 +54,12 @@
             "en-US": "This refresh token is invalid",
             "hr-HR": "Ovaj token za osvjezavanje je neispravan"
         }
+    },
+    {
+        "Key": "EmptyUsernameOrPassword",
+        "LocalizedValue": {
+            "en-US": "Username or password is empty",
+            "hr-HR": "Korisnicko ime ili sifra je prazno"
+        }
     }
 ]
