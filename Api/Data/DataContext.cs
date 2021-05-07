@@ -19,12 +19,13 @@ namespace Api.Data
 
         public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductPicture> ProductPictures { get; set; }
         public DbSet<ProductGroup> ProductGroups { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            
+
             modelBuilder.Entity<ProductGroup>(entity =>
             {
                 entity.HasKey(x => x.Id);
@@ -47,6 +48,11 @@ namespace Api.Data
                 .WithOne(u => u.Role)
                 .HasForeignKey(ur => ur.RoleId)
                 .IsRequired();
+
+            modelBuilder.Entity<Product>()
+                    .HasMany(c => c.Pictures)
+                    .WithOne(e => e.Product)
+                    .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.ApplyUtcDateTimeConverter();
         }
