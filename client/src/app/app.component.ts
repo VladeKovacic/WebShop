@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { User } from './_models/user';
 import { AccountService } from './_services/account.service';
+import { ProductGroupService } from './_services/product-group.service';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +13,10 @@ export class AppComponent implements OnInit {
   title = environment.appName;
   users: any;
 
-  constructor(private accountService: AccountService) {}
+  constructor(private accountService: AccountService, private productGroupService: ProductGroupService) {}
 
   ngOnInit() {
+    this.productGroupService.loadProductGroupTree();
     this.setCurrentUser();
   }
 

@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
+  <a class="navbar-brand" routerLink="/">{{title}}</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" (click)="isCollapsed=!isCollapsed"
     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
     aria-label="Toggle navigation">
@@ -8,15 +8,18 @@
 
   <div class="collapse navbar-collapse" [collapse]="isCollapsed">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" routerLink='/'>Home <span class="sr-only">(current)</span></a>
+      <li class="nav-item" routerLinkActive='active'>
+        <a class="nav-link" routerLink='/sale'>Sale</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+      <li class="nav-item" routerLinkActive='active'>
+        <a class="nav-link" routerLink='/shop'>Shop</a>
       </li>
-      <li class="nav-item dropdown" dropdown>
+      <li class="nav-item" routerLinkActive='active'>
+        <a class="nav-link" routerLink='/about'>About</a>
+      </li>
+      <!-- <li class="nav-item dropdown" dropdown *ngFor="let productGroup of productGroups">
         <a class="nav-link dropdown-toggle" dropdownToggle>
-          Dropdown
+          {{productGroup.name}}
         </a>
         <div class="dropdown-menu" *dropdownMenu>
           <a class="dropdown-item" href="#">Action</a>
@@ -24,7 +27,7 @@
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
-      </li>
+      </li> -->
       <li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
       </li>
@@ -33,7 +36,7 @@
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
-    <button *ngIf="(accountService.currentUser$ | async) === null && !loginToggle" class="btn btn-outline-success ml-2" (click)="loginToggle=!loginToggle">Login</button>
+    <a *ngIf="(accountService.currentUser$ | async) === null && !loginToggle" class="ml-2" style="cursor: pointer;" (click)="loginToggle=!loginToggle">Login</a>
     <form *ngIf="(accountService.currentUser$ | async) === null && loginToggle" #loginForm="ngForm" class="form-inline mt-2 mt-md-0"
       (ngSubmit)="login()" autocomplete="off">
       <input name="username" [(ngModel)]="model.username" class="form-control mr-sm-2" type="text"

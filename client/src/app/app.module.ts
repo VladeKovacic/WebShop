@@ -12,13 +12,23 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { JwtInterceptor } from './_interceptors/jwt.interceptor';
 import { ErrorInterceptor } from './_interceptors/error.interceptor';
 import { LoadingInterceptor } from './_interceptors/loading.interceptor';
+import { ShopComponent } from './shop/shop/shop.component';
+import { ShopListComponent } from './shop/shop-list/shop-list.component';
+import { ShopCardComponent } from './shop/shop-card/shop-card.component';
+import { AboutComponent } from './about/about.component';
+import { ShopSaleComponent } from './shop/shop-sale/shop-sale.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-    HomeComponent
+    HomeComponent,
+    ShopComponent,
+    ShopListComponent,
+    ShopCardComponent,
+    AboutComponent,
+    ShopSaleComponent
   ],
   imports: [
     BrowserModule,
