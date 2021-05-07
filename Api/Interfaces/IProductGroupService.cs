@@ -11,5 +11,7 @@ namespace Api.Interfaces
         Task<ServiceResult<ProductGroupDto>> AddProductGroupAsync(ProductGroupCreateDto productGroupCreateDto);
         
         Task<ServiceResult<ICollection<ProductGroupTreeDto>>> GetProductGroupTreeAsync();
+        
+        Task<ServiceResult<ICollection<ProductGroupDto>>> GetProductGroupAsync(int? parentId);
     }
 }

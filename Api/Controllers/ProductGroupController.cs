@@ -28,6 +28,17 @@ namespace Api.Controllers
             return Ok(result.Result);
         }
 
+        [AllowAnonymous]
+        [HttpGet("{parentId?}")]
+        public async Task<ActionResult<ICollection<ProductGroupTreeDto>>> GetProductGroup(int? parentId = null)
+        {
+            var result = await _productGroupService.GetProductGroupAsync(parentId);
+
+            if (result.HasError) return BadRequest(result.Exception);
+
+            return Ok(result.Result);
+        }
+
         [HttpPut]
         public async Task<ActionResult<ProductGroupDto>> AddProductGroup(ProductGroupCreateDto productGroupCreateDto)
         {

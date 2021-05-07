@@ -42,22 +42,27 @@ namespace Api.Services
                     typeof(ProductGroupTreeDto).Name,
                     () =>
                     {
-                        return GetProductGroupAsync(null);
+                        return GetProductGroupRecursionAsync(null);
                     });
 
             return ReturnOk(productGroupTreeDtoCollection);
         }
 
-        private async Task<ICollection<ProductGroupTreeDto>> GetProductGroupAsync(int? parentId = null)
+        private async Task<ICollection<ProductGroupTreeDto>> GetProductGroupRecursionAsync(int? parentId = null)
         {
             var rootProductGroups = Map<ICollection<ProductGroupTreeDto>>(await _webShopDatabase.ProductGroupRepository.GetProductGroupAsync(parentId));
 
             foreach (var productGroup in rootProductGroups)
             {
-                var subProductGroup = await GetProductGroupAsync(productGroup.Id);
+                var subProductGroup = await GetProductGroupRecursionAsync(productGroup.Id);
                 productGroup.SubProductGroups = subProductGroup;
             }
             return rootProductGroups;
+        }
+
+        public async Task<ServiceResult<ICollection<ProductGroupDto>>> GetProductGroupAsync(int? parentId)
+        {
+            return ReturnOk(await _webShopDatabase.ProductGroupRepository.GetProductGroupDtoAsync(parentId));
         }
     }
 }
