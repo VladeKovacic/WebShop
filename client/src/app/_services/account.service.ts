@@ -23,7 +23,7 @@ export class AccountService {
           this.setCurrentUser(user);
         }
       })
-    )
+    );
   }
 
   register(model: any) {
@@ -33,7 +33,19 @@ export class AccountService {
           this.setCurrentUser(user);
         }
       })
-    )
+    );
+  }
+
+  refreshToken(model: any) {
+    return this.http.post(this.baseUrl + 'account/refresh', model).pipe(
+      map((response: User) => {
+        const user = response;
+        if (user) {
+          this.setCurrentUser(user);
+        }
+        return user;
+      })
+    );
   }
 
   setCurrentUser(user: User) {
