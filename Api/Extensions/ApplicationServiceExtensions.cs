@@ -38,6 +38,7 @@ namespace Api.Extensions
             services.AddScoped<IWebShopDatabase, WebShopDatabase>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IProductGroupService, ProductGroupService>();
+            services.AddScoped<IProductService, ProductService>();
             services.AddScoped<LogUserActivity>();
             services.AddDbContext<DataContext>(options =>
             {

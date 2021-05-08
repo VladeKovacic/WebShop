@@ -3,7 +3,7 @@
         "Key": "SavingProductGroupToDatabaseNotSucceed",
         "LocalizedValue": {
             "en-US": "Saving product group to database not succeed",
-            "hr-HR": "Spremanje grupe produkata u bazu nije uspjelo"
+            "hr-HR": "Spremanje grupe proizvoda u bazu nije uspjelo"
         }
     },
     {
@@ -60,6 +60,20 @@
         "LocalizedValue": {
             "en-US": "Username or password is empty",
             "hr-HR": "Korisnicko ime ili sifra je prazno"
+        }
+    },
+    {
+        "Key": "SavingProductToDatabaseNotSucceed",
+        "LocalizedValue": {
+            "en-US": "Saving product to database not succeed",
+            "hr-HR": "Spremanje proizvoda u bazu nije uspjelo"
+        }
+    },
+    {
+        "Key": "ProductNotFound",
+        "LocalizedValue": {
+            "en-US": "Product not found",
+            "hr-HR": "Proizvod nije pronadjen"
         }
     }
 ]

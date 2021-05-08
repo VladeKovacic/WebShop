@@ -22,20 +22,25 @@ namespace Api.Services
         {
             return _mapper.Map<T>(obj);
         }
+
+        public D Map<S, D>(S source, D destination)
+        {
+            return _mapper.Map<S, D>(source, destination);
+        }
         public ApiException ReturnError(Exception exception)
-        {            
+        {
             return new ApiException("400", exception.Message, exception.StackTrace);
         }
 
         public ApiException ReturnError(IEnumerable<IdentityError> exception)
-        {            
+        {
             return new ApiException("IdentityErrors", JsonSerializer.Serialize(exception));
         }
 
         public ApiException ReturnError(string messageCode)
         {
             var messageLocalizer = _errorLocalizer[messageCode];
-            
+
             return new ApiException(messageCode, messageLocalizer);
         }
 

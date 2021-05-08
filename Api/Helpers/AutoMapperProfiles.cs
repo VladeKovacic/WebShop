@@ -14,6 +14,9 @@ namespace Api.Helpers
             CreateMap<ProductGroupDto, ProductGroup>();
             CreateMap<ProductGroupCreateDto, ProductGroup>();
             CreateMap<ProductGroup, ProductGroupTreeDto>();
+            CreateMap<Product, ProductDto>();
+            CreateMap<ProductCreateDto, Product>();
+            CreateMap<ProductUpdateDto, Product>();
         }
     }
 }
