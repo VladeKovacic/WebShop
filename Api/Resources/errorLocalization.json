@@ -75,5 +75,12 @@
             "en-US": "Product not found",
             "hr-HR": "Proizvod nije pronadjen"
         }
+    },
+    {
+        "Key": "DeletingProductFromDatabaseNotSucceed",
+        "LocalizedValue": {
+            "en-US": "Deleting product from database not succeed",
+            "hr-HR": "Brisanje proizvoda iz baze nije uspjelo"
+        }
     }
 ]

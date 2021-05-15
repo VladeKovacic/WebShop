@@ -14,5 +14,7 @@ namespace Api.Interfaces
         Task<Product> GetProductById(int productId);
 
         Task<PagedList<ProductDto>> GetProductsAsync(ProductParams productParams);
+        
+        Task DeleteProductAsync(Product product);
     }
 }

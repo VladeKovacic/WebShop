@@ -26,6 +26,19 @@ namespace Api.Services
             return ReturnError("SavingProductToDatabaseNotSucceed");
         }
 
+        public async Task<ServiceResult<bool>> DeleteProductAsync(int productId)
+        {
+           var product = await _webShopDatabase.ProductRepository.GetProductById(productId);
+
+           if(product == null) return ReturnError("ProductNotFound");
+
+            await _webShopDatabase.ProductRepository.DeleteProductAsync(product);
+
+            if (await _webShopDatabase.CompleteAsync()) return ReturnOk(true);
+
+            return ReturnError("DeletingProductFromDatabaseNotSucceed");
+        }
+
         public async Task<ServiceResult<PagedList<ProductDto>>> GetProductsAsync(ProductParams productParams)
         {
             return ReturnOk(await _webShopDatabase.ProductRepository.GetProductsAsync(productParams));    

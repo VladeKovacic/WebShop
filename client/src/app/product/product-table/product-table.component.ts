@@ -25,6 +25,14 @@ export class ProductTableComponent implements OnInit {
     this.loadProducts();
   }
 
+  deleteProduct(productId: number) {
+    this.productService.deleteProduct(productId).subscribe(result => {
+      if(result) {
+        this.loadProducts();
+      }
+    });
+  }
+
   loadProducts() {
     this.loading = true;
     this.productService.getProducts(this.productParams).subscribe(response => {
@@ -51,7 +59,10 @@ export class ProductTableComponent implements OnInit {
 
     this.bsModalRef = this.modalService.show(ProductEditModalComponent, config);
     this.bsModalRef.content.updateProduct.subscribe(values => {
-      console.log(values);
+      this.productService.updateProduct(product).subscribe((product: Product) => {
+        this.toastr.info("You updated product " + product.name);
+        this.loadProducts();
+      });
     })
   }
 

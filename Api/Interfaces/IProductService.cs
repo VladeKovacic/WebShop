@@ -11,5 +11,7 @@ namespace Api.Interfaces
         Task<ServiceResult<ProductDto>> UpdateProductAsync(ProductUpdateDto productUpdateDto);
 
         Task<ServiceResult<PagedList<ProductDto>>> GetProductsAsync(ProductParams productParams);
+        
+        Task<ServiceResult<bool>> DeleteProductAsync(int productId);
     }
 }

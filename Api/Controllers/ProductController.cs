@@ -44,6 +44,18 @@ namespace Api.Controllers
             return Ok(result.Result);
         }
 
+        [HttpDelete("{productId}")]
+        public async Task<ActionResult<ProductDto>> UpdateProduct(int productId)
+        {
+            if (productId <= 0) return BadRequest();
+
+            var result = await _productService.DeleteProductAsync(productId);
+
+            if (result.HasError) return BadRequest(result.Exception);
+
+            return Ok(result.Result);
+        }
+
         [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts([FromQuery] ProductParams productParams)

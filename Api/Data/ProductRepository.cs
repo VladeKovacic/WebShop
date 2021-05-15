@@ -25,6 +25,12 @@ namespace Api.Data
             await _context.Products.AddAsync(product);
         }
 
+        public Task DeleteProductAsync(Product product)
+        {
+            _context.Products.Remove(product);
+            return Task.CompletedTask;
+        }
+
         public async Task<Product> GetProductById(int productId)
         {
             return await _context.Products.FindAsync(productId);
