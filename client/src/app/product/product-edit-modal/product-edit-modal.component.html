@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h4 *ngIf="!product.id && product.id > 0" class="modal-title pull-left">Edit product {{product.name}}</h4>
+    <h4 *ngIf="product.id || product.id <= 0" class="modal-title pull-left">Adding new product</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #rolesForm="ngForm" id="productForm">
+        <div class="form-check" id="editForm">
+            <label>Name</label>
+            <input class="form-control" type="text" [(ngModel)]="product.name" name="name">
+            <label class="mt-2">Quantity</label>
+            <input class="form-control" type="text" [(ngModel)]="product.quantity" name="quantity">
+            <label class="mt-2">Price</label>
+            <input class="form-control" type="text" [(ngModel)]="product.price" name="price">
+            <label class="mt-2">Product group</label>
+            <input class="form-control" type="text" [(ngModel)]="product.productGroupId" name="productGroupId">
+        </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" form="productForm" class="btn btn-default" (click)="bsModalRef.hide()">Cancel</button>
+    <button type="submit" form="productForm" class="btn btn-success" (click)="update()">Submit</button>
+  </div>
+

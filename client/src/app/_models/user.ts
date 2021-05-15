@@ -2,5 +2,5 @@ export interface User {
     username: string;
     token: string;
     refreshToken: string;
-    // roles: string[];
+    roles: string[];
 }

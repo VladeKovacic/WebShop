@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   title = environment.appName;
   users: any;
 
-  constructor(private accountService: AccountService, private productGroupService: ProductGroupService) {}
+  constructor(private accountService: AccountService, private productGroupService: ProductGroupService) { }
 
   ngOnInit() {
     this.productGroupService.loadProductGroupTree();

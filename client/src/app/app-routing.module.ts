@@ -4,11 +4,21 @@ import { AboutComponent } from './about/about.component';
 import { NotFoundComponent } from './errors/not-found/not-found.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { HomeComponent } from './home/home.component';
+import { ProductAdministrationComponent } from './product/product-administration/product-administration.component';
 import { ShopSaleComponent } from './shop/shop-sale/shop-sale.component';
 import { ShopComponent } from './shop/shop/shop.component';
+import { ProductAdminGuard } from './_guards/product-admin.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  {
+    path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [ProductAdminGuard],
+    children: [
+      {path: 'product-administration', component: ProductAdministrationComponent}
+    ]
+  },
   { path: 'sale', component: ShopSaleComponent },
   { path: 'shop', component: ShopComponent },
   { path: 'about', component: AboutComponent },

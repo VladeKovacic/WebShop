@@ -12,6 +12,7 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { TimeagoModule } from 'ngx-timeago';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   declarations: [],
@@ -25,6 +26,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     NgxGalleryModule,
     FileUploadModule,
     NgxSpinnerModule,
+    NgxDatatableModule,
     BsDatepickerModule.forRoot(),
     PaginationModule.forRoot(),
     ButtonsModule.forRoot(),
@@ -38,6 +40,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     TabsModule,
     NgxGalleryModule,
     NgxSpinnerModule,
+    NgxDatatableModule,
     FileUploadModule,
     BsDatepickerModule,
     PaginationModule,

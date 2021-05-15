@@ -17,6 +17,10 @@ import { ShopListComponent } from './shop/shop-list/shop-list.component';
 import { ShopCardComponent } from './shop/shop-card/shop-card.component';
 import { AboutComponent } from './about/about.component';
 import { ShopSaleComponent } from './shop/shop-sale/shop-sale.component';
+import { ProductAdministrationComponent } from './product/product-administration/product-administration.component';
+import { HasRoleDirective } from './_directives/has-role.directive';
+import { ProductTableComponent } from './product/product-table/product-table.component';
+import { ProductEditModalComponent } from './product/product-edit-modal/product-edit-modal.component';
 
 
 @NgModule({
@@ -28,7 +32,11 @@ import { ShopSaleComponent } from './shop/shop-sale/shop-sale.component';
     ShopListComponent,
     ShopCardComponent,
     AboutComponent,
-    ShopSaleComponent
+    ShopSaleComponent,
+    ProductAdministrationComponent,
+    HasRoleDirective,
+    ProductTableComponent,
+    ProductEditModalComponent
   ],
   imports: [
     BrowserModule,

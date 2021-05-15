@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { ProductGroup } from '../_models/productGroup';
 import { AccountService } from '../_services/account.service';
+import { LocalizationService } from '../_services/localization.service';
 import { ProductGroupService } from '../_services/product-group.service';
 
 @Component({
@@ -19,6 +20,7 @@ export class NavComponent implements OnInit {
 
   constructor(
     public accountService: AccountService,
+    public loc : LocalizationService,
     private router: Router) { }
 
   ngOnInit(): void {
