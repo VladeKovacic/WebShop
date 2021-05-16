@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Pagination } from 'src/app/_models/pagination';
 import { Product } from 'src/app/_models/product';
 import { ProductParams } from 'src/app/_models/productParams';
+import { ConfirmService } from 'src/app/_services/confirm.service';
 import { ProductService } from 'src/app/_services/product.service';
 import { ProductEditModalComponent } from '../product-edit-modal/product-edit-modal.component';
 
@@ -19,16 +20,25 @@ export class ProductTableComponent implements OnInit {
   bsModalRef: BsModalRef;
   loading = false;
 
-  constructor(private productService: ProductService, private modalService: BsModalService, private toastr: ToastrService) { }
-  
+  constructor(
+    private productService: ProductService,
+    private modalService: BsModalService,
+    private toastr: ToastrService,
+    private confirmService: ConfirmService
+  ) { }
+
   ngOnInit(): void {
     this.loadProducts();
   }
 
   deleteProduct(productId: number) {
-    this.productService.deleteProduct(productId).subscribe(result => {
-      if(result) {
-        this.loadProducts();
+    this.confirmService.confirm('Confirm delete message', 'This cannot be undone').subscribe(result => {
+      if (result) {
+        this.productService.deleteProduct(productId).subscribe(result => {
+          if (result) {
+            this.loadProducts();
+          }
+        });
       }
     });
   }
