@@ -21,6 +21,7 @@ import { ProductAdministrationComponent } from './product/product-administration
 import { HasRoleDirective } from './_directives/has-role.directive';
 import { ProductTableComponent } from './product/product-table/product-table.component';
 import { ProductEditModalComponent } from './product/product-edit-modal/product-edit-modal.component';
+import { TreeModule } from './_modules/tree-module/tree.module';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { ProductEditModalComponent } from './product/product-edit-modal/product-
     SharedModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TreeModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

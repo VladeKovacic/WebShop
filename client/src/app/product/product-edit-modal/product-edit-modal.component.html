@@ -15,7 +15,12 @@
             <label class="mt-2">Price</label>
             <input class="form-control" type="text" [(ngModel)]="product.price" name="price">
             <label class="mt-2">Product group</label>
-            <input class="form-control" type="text" [(ngModel)]="product.productGroupId" name="productGroupId">
+            <app-tree
+              [data]="data"
+              [parentId]="null"
+              [selectedNode]="selectedTreeNode"
+              (select)="handleSelection($event)">
+            </app-tree>
         </div>
     </form>
   </div>
