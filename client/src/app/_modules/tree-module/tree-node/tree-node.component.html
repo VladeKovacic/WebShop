@@ -1,16 +1,22 @@
 <div *ngFor="let item of data">
-    <ul *ngIf="item.parentId===parentId">
+    <ul>
         <li>
-            <i *ngIf="hasChildren(item.id)" 
-                class="fa mr-2" 
-                [ngClass]="{'fa-angle-down': !item.expand, 'fa-angle-up': item.expand}" 
+            <div 
                 (click)="$event.stopPropagation()" 
-                (click)="item.expand = !item.expand"></i>
-            <div (click)="$event.stopPropagation()" (click)="select.emit(item)" [ngClass]="{'selected': selectedNode?.id === item.id}">{{item.name}}</div>
-            <div>{{ "Test: " + selectedNode?.id + " / " + item.id }}</div>
-            <app-tree-node 
-                [data]="removeCurrentLevelItems(data, parentId)"
-                [parentId]="item.id"
+                (click)="select.emit(item)" 
+                [ngClass]="{'selected': selectedNode && selectedNode[options.fieldNameId]=== item[options.fieldNameId]}">
+                <i 
+                    *ngIf="item[options.fieldNameChildrenArray]?.length > 0" 
+                    class="fa mr-2" 
+                    [ngClass]="{'fa-angle-down': !item.expand, 'fa-angle-up': item.expand}" 
+                    (click)="$event.stopPropagation()" 
+                    (click)="item.expand = !item.expand">
+                </i>
+                {{item[options.fieldNameLable]}}
+            </div>
+            <app-tree-node
+                [options]="options"
+                [data]="item[options.fieldNameChildrenArray]"
                 [node]="item"
                 [selectedNode]="selectedNode"
                 (select)="select.emit( $event )"

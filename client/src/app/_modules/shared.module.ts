@@ -13,9 +13,6 @@ import { TimeagoModule } from 'ngx-timeago';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { TreeComponent } from './tree-module/tree/tree.component';
-import { TreeNodeComponent } from './tree-module/tree-node/tree-node.component';
-
 
 @NgModule({
   declarations: [
@@ -36,7 +33,7 @@ import { TreeNodeComponent } from './tree-module/tree-node/tree-node.component';
     ButtonsModule.forRoot(),
     TimeagoModule.forRoot(),
     ModalModule.forRoot(),
-    CollapseModule.forRoot() 
+    CollapseModule.forRoot()
   ],
   exports: [
     BsDropdownModule,

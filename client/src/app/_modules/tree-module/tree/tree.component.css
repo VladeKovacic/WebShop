@@ -1,0 +1,7 @@
+.popup {
+    border: solid 1px #ccc;
+    border-radius: 5px;
+    background: #fff;
+    padding: 10px;
+    margin: 0;
+  }

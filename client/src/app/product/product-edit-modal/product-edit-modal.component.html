@@ -17,9 +17,9 @@
             <label class="mt-2">Product group</label>
             <app-tree
               [data]="data"
-              [parentId]="null"
+              [options]="treeOptions"
               [selectedNode]="selectedTreeNode"
-              (select)="handleSelection($event)">
+              (select$)="handleSelection($event)">
             </app-tree>
         </div>
     </form>

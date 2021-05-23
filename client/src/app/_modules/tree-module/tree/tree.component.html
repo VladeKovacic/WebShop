@@ -1,6 +1,38 @@
-<app-tree-node
-    [data]="data"
-    [parentId]="parentId"
-    [selectedNode]="selectedNode"
-    (select)="select.emit($event)">
-</app-tree-node>
+<!-- This button triggers the overlay and is it's origin -->
+<!-- <button (click)="isOpen = !isOpen" type="button" cdkOverlayOrigin #treeTrigger="cdkOverlayOrigin">
+    {{isOpen ? "Close" : "Open"}}
+  </button> -->
+
+  <input type="text" readonly [ngModel]="selectedNode ? selectedNode[this.options.fieldNameLable] : ''" autocomplete="none" (click)="isOpen$.next(true)" cdkOverlayOrigin #treeTrigger="cdkOverlayOrigin"/> 
+  
+  <!-- This template displays the overlay content and is connected to the button -->
+  <ng-template
+    cdkConnectedOverlay
+    cdkConnectedOverlayHasBackdrop
+    [cdkConnectedOverlayPositions]="treePosition"
+    [cdkConnectedOverlayOrigin]="treeTrigger"
+    [cdkConnectedOverlayOpen]="isOpen$ | async"
+  >
+    <div class="container popup">
+        <div class="row">
+            <div class="col-12">
+                <input type="text" [(ngModel)]="filterText" #filterTextInput (ngModelChange)="filter($event)" autocomplete="none" placeholder="Filter" autofocus /> 
+                <button (click)="$event.stopPropagation()" (click)="clearFilter()" class='btn btn-outline-primary btn-sm'><i class="fa mr-2 fa-times-circle"></i></button>
+                <button (click)="$event.stopPropagation()" (click)="expand(true)" class='btn btn-outline-primary btn-sm'><i class="fa mr-2 fa-angle-double-down"></i></button>
+                <button (click)="$event.stopPropagation()" (click)="expand(false)" class='btn btn-outline-primary btn-sm'><i class="fa mr-2 fa-angle-double-up"></i></button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <app-tree-node
+                    [options]="options"
+                    [data]="data"
+                    [selectedNode]="selectedNode"
+                    (select)="handleSelection($event)">
+                </app-tree-node>
+            </div>
+        </div>
+    </div>
+  </ng-template>
+  
+

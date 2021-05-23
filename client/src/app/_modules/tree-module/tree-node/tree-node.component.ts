@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TreeNode } from '../models/treeNode';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { TreeOptions } from 'src/app/_models/treeOptions';
 
 @Component({
   selector: 'app-tree-node',
@@ -7,11 +7,11 @@ import { TreeNode } from '../models/treeNode';
   styleUrls: ['./tree-node.component.css']
 })
 export class TreeNodeComponent implements OnInit {
-  @Input() parentId: number;
-  @Input() data: TreeNode[];
-  @Input() node: TreeNode | null;
-  @Input() selectedNode: TreeNode | null;
-  @Output() select: EventEmitter<TreeNode>;
+  @Input() options: TreeOptions;
+  @Input() data: any[];
+  @Input() node: any | null;
+  @Input() selectedNode: any | null;
+  @Output() select: EventEmitter<any>;
 
   constructor() {
     this.node = null;
@@ -20,13 +20,5 @@ export class TreeNodeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-
-  removeCurrentLevelItems(data, parentId) {
-    return data.filter(item => item.parentId !== parentId)
-  }
-
-  hasChildren(parentId: number) {
-    return this.data.filter(item => item.parentId === parentId).length > 0;
   }
 }

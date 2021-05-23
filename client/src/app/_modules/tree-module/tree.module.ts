@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TreeComponent } from './tree/tree.component';
 import { TreeNodeComponent } from './tree-node/tree-node.component';
-
-
+import { FormsModule } from '@angular/forms';
+import { OverlayModule } from "@angular/cdk/overlay";
 
 @NgModule({
   declarations: [
@@ -11,7 +11,9 @@ import { TreeNodeComponent } from './tree-node/tree-node.component';
     TreeNodeComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    OverlayModule
   ],
   exports: [
     TreeComponent
