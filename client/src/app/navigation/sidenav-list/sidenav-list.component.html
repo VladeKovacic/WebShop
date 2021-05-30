@@ -1,0 +1,14 @@
+<mat-nav-list>
+    <ng-container *ngFor="let navItem of (navigation$ | async)">
+        <a *appHasRole="navItem.role" mat-list-item [routerLink]="navItem.routerLink" (click)="onClose()">
+            <mat-icon>{{navItem.icon}}</mat-icon>
+            <span class="nav-caption">{{navItem.label}}</span>
+        </a>
+    </ng-container>
+    <mat-list-item *ngIf="isAuth$ | async">
+        <button mat-icon-button (click)="onLogout()">
+            <mat-icon>eject</mat-icon>
+            <span class="nav-caption">Logout</span>
+        </button>
+    </mat-list-item>
+</mat-nav-list>

@@ -7,17 +7,19 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { AccountService } from '../_services/account.service';
+import { AuthService } from '../auth/auth.service';
 import { User } from '../_models/user';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import * as RootReducer from '../app.reducer';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
   private currentUser: User;
-  constructor(private accountService: AccountService) { }
+  constructor(private store: Store<RootReducer.State>, private authService: AuthService) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.currentUser = user);
+    this.store.select(RootReducer.getUser).pipe(take(1)).subscribe(user => this.currentUser = user);
     if (this.currentUser) {
       request = this.addToken(request, this.currentUser.token);
     }
@@ -47,7 +49,7 @@ export class JwtInterceptor implements HttpInterceptor {
       this.isRefreshing = true;
       this.refreshTokenSubject.next(null);
 
-      return this.accountService.refreshToken(this.currentUser).pipe(
+      return this.authService.refreshToken(this.currentUser).pipe(
         switchMap((user: any) => {
           this.isRefreshing = false;
           return next.handle(this.addToken(request, user.token));

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { User } from './_models/user';
-import { AccountService } from './_services/account.service';
+import { AuthService } from './auth/auth.service';
 import { ProductGroupService } from './_services/product-group.service';
 
 @Component({
@@ -13,17 +12,14 @@ export class AppComponent implements OnInit {
   title = environment.appName;
   users: any;
 
-  constructor(private accountService: AccountService, private productGroupService: ProductGroupService) { }
+  constructor(
+    private productGroupService: ProductGroupService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
     this.productGroupService.loadProductGroupTree();
-    this.setCurrentUser();
-  }
-
-  setCurrentUser() {
-    const user: User = JSON.parse(localStorage.getItem('user'));
-    if (user) {
-      this.accountService.setCurrentUser(user);
-    }
+    this.authService.initUserFromStore();
+    this.authService.initAuthListener();
   }
 }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './_modules/shared.module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,15 +19,24 @@ import { ShopCardComponent } from './shop/shop-card/shop-card.component';
 import { AboutComponent } from './about/about.component';
 import { ShopSaleComponent } from './shop/shop-sale/shop-sale.component';
 import { ProductAdministrationComponent } from './product/product-administration/product-administration.component';
-import { HasRoleDirective } from './_directives/has-role.directive';
+import { HasRoleDirective } from './auth/has-role.directive';
 import { ProductTableComponent } from './product/product-table/product-table.component';
 import { ProductEditModalComponent } from './product/product-edit-modal/product-edit-modal.component';
 import { TreeModule } from './_modules/tree-module/tree.module';
+import { SigninComponent } from './auth/signin/signin.component';
+import { LoginComponent } from './auth/login/login.component';
+import { MaterialModule } from './shared/material.module';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './app.reducer';
+import { HeaderComponent } from './navigation/header/header.component';
+import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    HeaderComponent,
+    SidenavListComponent,
     NavComponent,
     HomeComponent,
     ShopComponent,
@@ -37,7 +47,9 @@ import { TreeModule } from './_modules/tree-module/tree.module';
     ProductAdministrationComponent,
     HasRoleDirective,
     ProductTableComponent,
-    ProductEditModalComponent
+    ProductEditModalComponent,
+    SigninComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +59,10 @@ import { TreeModule } from './_modules/tree-module/tree.module';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    TreeModule
+    TreeModule,
+    MaterialModule,
+    FlexLayoutModule,
+    StoreModule.forRoot(reducers)
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

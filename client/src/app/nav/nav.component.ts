@@ -2,9 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { ProductGroup } from '../_models/productGroup';
-import { AccountService } from '../_services/account.service';
+import { AuthService } from '../auth/auth.service';
 import { LocalizationService } from '../_services/localization.service';
-import { ProductGroupService } from '../_services/product-group.service';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as RootReducer from '../app.reducer';
+import { User } from '../_models/user';
 
 @Component({
   selector: 'app-nav',
@@ -17,21 +20,18 @@ export class NavComponent implements OnInit {
   model: any = {};
   productGroups: ProductGroup[];
   title = environment.appName;
+  isAuth$: Observable<boolean>;
+  user$: Observable<User>;
 
   constructor(
-    public accountService: AccountService,
+    public accountService: AuthService,
     public loc : LocalizationService,
-    private router: Router) { }
+    private router: Router,
+    private store: Store<RootReducer.State>) { }
 
   ngOnInit(): void {
-  }
-
-  login() {
-    this.accountService.login(this.model).subscribe(response => {
-      this.loginToggle = false;
-      this.model = {};
-      this.router.navigateByUrl('/');
-    });
+    this.isAuth$ = this.store.select(RootReducer.getIsAuth);
+    this.user$ = this.store.select(RootReducer.getUser);
   }
 
   logout() {
