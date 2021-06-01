@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TreeOptions } from 'src/app/_models/treeOptions';
+import { TreeOptions } from '../treeOptions';
 
 @Component({
   selector: 'app-tree-node',

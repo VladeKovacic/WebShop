@@ -8,7 +8,7 @@ import {
 } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
-import { User } from '../_models/user';
+import { User } from '../auth/user';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import * as RootReducer from '../app.reducer';

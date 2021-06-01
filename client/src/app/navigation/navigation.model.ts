@@ -1,4 +1,4 @@
-import { Role } from "../auth/role";
+import { Role } from "./role";
 
 export interface NavigationModel {
     label: string;

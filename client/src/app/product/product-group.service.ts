@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { ProductGroup } from '../_models/productGroup';
-import { ProductGroupTree } from '../_models/productGroupTree';
+import { ProductGroup } from './productGroup.model';
+import { ProductGroupTree } from './productGroupTree.model';
 
 @Injectable({
   providedIn: 'root'

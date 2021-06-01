@@ -1,41 +1,32 @@
-<div class="container">
-    <button type="button" class="btn btn-outline-success" (click)="openAddProductModal()">Add new product</button>
+<div fxLayoutAlign="center center">
+    <mat-form-field fxFlex="40%">
+        <input matInput type="text" #filter placeholder="Filter" autocomplete="false">
+    </mat-form-field>
 </div>
-<div class="row" *ngIf="products?.length === 0">
-    <h3>No products</h3>
-</div>
+<mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
 
-<div class="row" *ngIf="products?.length > 0">
-    <table class="table table-hover" style="cursor: pointer">
-        <tr>
-            <th style="width: 40%"><h5>Name</h5></th>
-            <th style="width: 20%"><h5>Price</h5></th>
-            <th style="width: 20%"><h5>Quantity</h5></th>
-            <th style="width: 20%"></th>
-        </tr>
-        <tr [hidden]="loading" *ngFor="let product of products" >
-            <td>{{product.name}}</td>    
-            <td>{{product.price}}</td>
-            <td>{{product.quantity}}</td>
-            <td>
-                <button (click)="$event.stopPropagation()" (click)="openEditProductModal(product)" class='btn btn-outline-success'>Edit</button>
-                <button (click)="$event.stopPropagation()" (click)="deleteProduct(product.id)" class='btn btn-danger'>Delete</button>
-            </td>
-        </tr>
-    </table>
-</div>
+    <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+    </ng-container>
 
-<div class="d-flex justify-content-center" *ngIf="pagination && !loading">
-    <pagination 
-        class="pagination"
-        [boundaryLinks]="true" 
-        [totalItems]="pagination.totalItems"
-        [itemsPerPage]="pagination.itemsPerPage"
-        [(ngModel)]="pagination.currentPage"
-        (pageChanged)="pageChanged($event)"
-        previousText="&lsaquo;" 
-        nextText="&rsaquo;" 
-        firstText="&laquo;" 
-        lastText="&raquo;">
-</pagination>
-</div>
+    <ng-container matColumnDef="price">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Price</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.price | number}}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="quantity">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.quantity | number}}</mat-cell>
+    </ng-container>
+
+    <mat-header-row 
+        *matHeaderRowDef="displayedColumns">
+    </mat-header-row>
+    <mat-row 
+        *matRowDef="let row; columns: displayedColumns;"
+        (click)="selectedRowChanged(row)"
+        [class.selected-row]="(selectedRow | async)?.id === row.id">
+    </mat-row>
+</mat-table>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" [length]="pagination.totalItems" showFirstLastButtons (page)="onPaginateChange($event)"></mat-paginator>

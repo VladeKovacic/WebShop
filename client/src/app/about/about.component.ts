@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { delay } from 'rxjs/operators';
+import { ProductService } from '../product/product.service';
+import { ProductParams } from '../product/productParams.model';
 
 @Component({
   selector: 'app-about',
@@ -7,9 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private productService: ProductService
+  ) { }
 
   ngOnInit(): void {
   }
-
 }

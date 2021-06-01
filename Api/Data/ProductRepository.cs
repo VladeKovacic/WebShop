@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Api.Dtos;
 using Api.Entities;
+using Api.Extensions;
 using Api.Helpers;
 using Api.Interfaces;
 using AutoMapper;
@@ -38,11 +39,28 @@ namespace Api.Data
 
         public async Task<PagedList<ProductDto>> GetProductsAsync(ProductParams productParams)
         {
+            var sortColumn = nameof(Product.Modified);
+
+            switch(productParams.SortColumn)
+            {
+                case "name":
+                    sortColumn = nameof(Product.Name);
+                    break;
+                case "price":
+                    sortColumn = nameof(Product.Price);
+                    break;
+                case "quantity":
+                    sortColumn = nameof(Product.Quantity);
+                    break;
+            }
+
+
             var query = _context.Products
                 .AsNoTracking()
-                .OrderByDescending(m => m.Modified)
+                .Order(sortColumn, productParams.SortDirection)
                 .ProjectTo<ProductDto>(_mapper.ConfigurationProvider)
                 .AsQueryable();
+
 
             query = query.Where(p => EF.Functions.Like(p.Name, $"%{productParams.SearchString}%"));
 

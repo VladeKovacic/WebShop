@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { getPaginatedResult } from '../_helpers/paginationHelper';
-import { Product } from '../_models/product';
-import { ProductParams } from '../_models/productParams';
+import { getPaginatedResult } from '../_helpers/pagination/paginationHelper';
+import { Product } from './product.model';
+import { ProductParams } from './productParams.model';
 
 @Injectable({
   providedIn: 'root'

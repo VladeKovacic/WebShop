@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth/auth.service';
-import { ProductGroupService } from './_services/product-group.service';
+import { ProductGroupService } from './product/product-group.service';
+import { BusyService } from './shared/busy.service';
+
 
 @Component({
   selector: 'app-root',
@@ -11,15 +13,17 @@ import { ProductGroupService } from './_services/product-group.service';
 export class AppComponent implements OnInit {
   title = environment.appName;
   users: any;
-
+  
   constructor(
     private productGroupService: ProductGroupService,
-    private authService: AuthService
+    private authService: AuthService,
+    private busy: BusyService
   ) { }
-
+  
   ngOnInit() {
     this.productGroupService.loadProductGroupTree();
     this.authService.initUserFromStore();
-    this.authService.initAuthListener();
+    this.authService.initAuthListener();    
+    this.busy.init();
   }
 }

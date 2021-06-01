@@ -2,7 +2,7 @@ import { CdkConnectedOverlay, ConnectedPosition, Overlay, OverlayConfig, Overlay
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TreeOptions } from 'src/app/_models/treeOptions';
+import { TreeOptions } from '../treeOptions';
 import { HelloComponent } from '../hello.component';
 
 @Component({

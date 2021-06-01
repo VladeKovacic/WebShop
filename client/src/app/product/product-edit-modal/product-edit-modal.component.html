@@ -1,4 +1,4 @@
-<div class="modal-header">
+<!-- <div class="modal-header">
     <h4 *ngIf="!product.id && product.id > 0" class="modal-title pull-left">Edit product {{product.name}}</h4>
     <h4 *ngIf="product.id || product.id <= 0" class="modal-title pull-left">Adding new product</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
@@ -27,5 +27,52 @@
   <div class="modal-footer">
     <button type="button" form="productForm" class="btn btn-default" (click)="bsModalRef.hide()">Cancel</button>
     <button type="submit" form="productForm" class="btn btn-success" (click)="update()">Submit</button>
-  </div>
-
+  </div> -->
+<h1 *ngIf="product?.id > 0" mat-dialog-title>Editing: {{product.name}}</h1>
+<h1 *ngIf="product?.id < 0" mat-dialog-title>New product</h1>
+<div mat-dialog-content>
+  <form #rolesForm="ngForm" id="productForm" fxLayout="column" fxLayoutAlign="space-between none">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input 
+        matInput type="text" 
+        [(ngModel)]="product.name" 
+        name="name"
+        required 
+        #name="ngModel">
+      <mat-error *ngIf="name.hasError('required')">Name is required.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Quantity</mat-label>
+      <input 
+        matInput type="number" 
+        [(ngModel)]="product.quantity" 
+        name="quantity"
+        required 
+        #quantity="ngModel">
+      <mat-error *ngIf="quantity.hasError('required')">Quantity is required.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Price</mat-label>
+      <input 
+        matInput type="number" 
+        [(ngModel)]="product.price" 
+        name="price"
+        required 
+        #price="ngModel">
+      <mat-error *ngIf="price.hasError('required')">Price is required.</mat-error>
+    </mat-form-field>
+    
+      <app-tree
+        [data]="data"
+        [options]="treeOptions"
+        [selectedNode]="selectedTreeNode"
+        (select$)="handleSelection($event)">
+      </app-tree>
+  
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-button [mat-dialog-close]="product" cdkFocusInitial>Ok</button>
+</div>

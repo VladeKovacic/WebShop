@@ -6,7 +6,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -19,7 +18,7 @@ import { ShopCardComponent } from './shop/shop-card/shop-card.component';
 import { AboutComponent } from './about/about.component';
 import { ShopSaleComponent } from './shop/shop-sale/shop-sale.component';
 import { ProductAdministrationComponent } from './product/product-administration/product-administration.component';
-import { HasRoleDirective } from './auth/has-role.directive';
+import { HasRoleDirective } from './navigation/has-role.directive';
 import { ProductTableComponent } from './product/product-table/product-table.component';
 import { ProductEditModalComponent } from './product/product-edit-modal/product-edit-modal.component';
 import { TreeModule } from './_modules/tree-module/tree.module';
@@ -37,7 +36,6 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     AppComponent,
     HeaderComponent,
     SidenavListComponent,
-    NavComponent,
     HomeComponent,
     ShopComponent,
     ShopListComponent,

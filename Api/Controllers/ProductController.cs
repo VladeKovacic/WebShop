@@ -4,7 +4,6 @@ using Api.Dtos;
 using Api.Extensions;
 using Api.Helpers;
 using Api.Interfaces;
-using Api.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -60,6 +59,8 @@ namespace Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts([FromQuery] ProductParams productParams)
         {
+            await Task.Delay(2000);
+            
             if (productParams == null) return BadRequest();
 
             var result = await _productService.GetProductsAsync(productParams);

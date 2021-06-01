@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { LocalizationService } from '../_services/localization.service';
+import { LocalizationService } from '../shared/localization.service';
 import * as RootReducer from '../app.reducer';
 
 @Injectable({

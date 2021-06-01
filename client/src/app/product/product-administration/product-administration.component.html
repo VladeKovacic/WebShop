@@ -1,1 +1,6 @@
-<app-product-table></app-product-table>
+<mat-toolbar>
+    <button type="button" mat-button (click)="openProductModal()">Add new product</button>
+    <button [disabled]="!selectedProduct" type="button" mat-button (click)="openProductModal(false)">Edit selected product</button>
+    <button [disabled]="!selectedProduct" type="button" mat-button (click)="deleteSelectedProduct()">Delete selected product</button>
+</mat-toolbar>
+<app-product-table (selectedRow)="onSelectRowChanged($event)"></app-product-table>

@@ -1,95 +1,86 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, Output, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
-import { Pagination } from 'src/app/_models/pagination';
-import { Product } from 'src/app/_models/product';
-import { ProductParams } from 'src/app/_models/productParams';
-import { ConfirmService } from 'src/app/_services/confirm.service';
-import { ProductService } from 'src/app/_services/product.service';
+import { Pagination } from 'src/app/_helpers/pagination/pagination';
+import { Product } from 'src/app/product/product.model';
+import { ProductParams, SortDirection } from '../productParams.model';
+import { ConfirmService } from 'src/app/shared/confirm.service';
+import { ProductService } from 'src/app/product/product.service';
 import { ProductEditModalComponent } from '../product-edit-modal/product-edit-modal.component';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource, MatTableDataSourcePageEvent } from '@angular/material/table';
+import { debounce, debounceTime, distinctUntilChanged, filter, take, tap } from 'rxjs/operators';
+import { fromEvent, Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-product-table',
   templateUrl: './product-table.component.html',
   styleUrls: ['./product-table.component.css']
 })
-export class ProductTableComponent implements OnInit {
-  products: Product[];
+export class ProductTableComponent implements OnInit, AfterViewInit {
+  @Output() selectedRow: Observable<Product>;
   productParams = new ProductParams();
   pagination = <Pagination>{};
-  bsModalRef: BsModalRef;
-  loading = false;
+
+  @ViewChild(MatSort) sort?: MatSort;
+  @ViewChild(MatPaginator) paginator?: MatPaginator;
+  @ViewChild('filter') filter: ElementRef;
+  displayedColumns: string[] = ['name', 'price', 'quantity'];
+  dataSource = new MatTableDataSource<Product>();
+
+  private selectedRowSubject = new Subject<Product>();
 
   constructor(
-    private productService: ProductService,
-    private modalService: BsModalService,
-    private toastr: ToastrService,
-    private confirmService: ConfirmService
-  ) { }
+    private productService: ProductService
+  ) {
+    this.selectedRow = this.selectedRowSubject.asObservable();
+  }
 
   ngOnInit(): void {
     this.loadProducts();
   }
 
-  deleteProduct(productId: number) {
-    this.confirmService.confirm('Confirm delete message', 'This cannot be undone').subscribe(result => {
-      if (result) {
-        this.productService.deleteProduct(productId).subscribe(result => {
-          if (result) {
-            this.loadProducts();
-          }
-        });
-      }
-    });
+  ngAfterViewInit() {
+    fromEvent(this.filter.nativeElement, 'keyup')
+      .pipe(
+        debounceTime(500),
+        tap((text) => {
+          console.log(this.filter.nativeElement.value);
+          this.filterProducts(this.filter.nativeElement.value);
+        })
+      )
+      .subscribe();
+  }
+
+  selectedRowChanged(row: Product) {
+    this.selectedRowSubject.next(row);
+  }
+
+  filterProducts(filterText: string) {
+    this.productParams.searchString = filterText;
+    this.productParams.pageNumber = 1;
+    this.paginator.firstPage();
+    this.loadProducts();
   }
 
   loadProducts() {
-    this.loading = true;
-    this.productService.getProducts(this.productParams).subscribe(response => {
-      this.products = response.result;
+    this.productService.getProducts(this.productParams).pipe(take(1)).subscribe(response => {
+      this.dataSource.data = response.result;
       this.pagination = response.pagination;
-      this.loading = false;
+      this.selectedRowSubject.next(null);
     });
   }
 
-  pageChanged(event: any) {
-    if (this.productParams.pageNumber !== event.page) {
-      this.productParams.pageNumber = event.page;
-      this.loadProducts();
-    }
+  onPaginateChange(event: MatTableDataSourcePageEvent) {
+    this.productParams.pageNumber = event.pageIndex + 1;
+    this.productParams.pageSize = event.pageSize;
+    this.loadProducts();
   }
 
-  openEditProductModal(product: Product) {
-    const config = {
-      class: 'modal-dialog-centered',
-      initialState: {
-        product: product
-      }
-    };
-
-    this.bsModalRef = this.modalService.show(ProductEditModalComponent, config);
-    this.bsModalRef.content.updateProduct.subscribe(values => {
-      this.productService.updateProduct(product).subscribe((product: Product) => {
-        this.toastr.info("You updated product " + product.name);
-        this.loadProducts();
-      });
-    })
-  }
-
-  openAddProductModal() {
-    const config = {
-      class: 'modal-dialog-centered',
-      initialState: {
-        product: <Product>{}
-      }
-    };
-
-    this.bsModalRef = this.modalService.show(ProductEditModalComponent, config);
-    this.bsModalRef.content.updateProduct.subscribe(product => {
-      this.productService.addProduct(product).subscribe((product: Product) => {
-        this.toastr.info("You added new product " + product.name);
-        this.loadProducts();
-      });
-    })
+  sortData(event: Sort) {
+    this.productParams.sortColumn = event.active;
+    this.productParams.sortDirection = <SortDirection>event.direction;
+    this.loadProducts();
   }
 }

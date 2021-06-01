@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { User } from '../_models/user';
+import { User } from './user';
 import { UiService } from '../shared/ui.service';
 import { Store } from '@ngrx/store';
 import * as AuthActions from './auth.actions';
@@ -34,7 +34,6 @@ export class AuthService {
   }
 
   login(model: any) {
-    this.store.dispatch(new UiActions.StartLoading());
     return this.http.post(this.baseUrl + 'account/login', model)
       .pipe(take(1))
       .subscribe((response: User) => {

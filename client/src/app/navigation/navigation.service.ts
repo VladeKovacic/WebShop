@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { of } from "rxjs";
 import { NavigationModel } from "./navigation.model";
-import { Role } from "../auth/role";
+import { Role } from "./role";
 
 @Injectable({
     providedIn: 'root'

@@ -13,4 +13,18 @@ export class UiService {
             duration: duration
         });
     }
+
+    errorMessage(message: string) {
+        this.snackBar.open(message, null, {
+            duration: 3000,
+            panelClass: ['error', 'notification']
+        });
+    }
+
+    successMessage(message: string) {
+        this.snackBar.open(message, null, {
+            duration: 3000,
+            panelClass: ['success', 'notification']
+        });
+    }
 }

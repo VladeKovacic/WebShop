@@ -18,6 +18,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from "@angular/material/sort";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BusyComponent } from './busy/busy.component';
 
 @NgModule({
     imports: [
@@ -61,6 +62,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         MatSortModule,
         MatPaginatorModule,
         MatSnackBarModule
+    ],
+    declarations: [
+      BusyComponent
     ]
 })
 export class MaterialModule {
