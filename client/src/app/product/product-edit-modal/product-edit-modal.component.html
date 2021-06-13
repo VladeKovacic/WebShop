@@ -62,6 +62,18 @@
         #price="ngModel">
       <mat-error *ngIf="price.hasError('required')">Price is required.</mat-error>
     </mat-form-field>
+
+    <!-- <mat-form-field appearance="fill">
+      <mat-label>Phone number</mat-label>
+      <example-tel-input formControlName="tel" required></example-tel-input>
+      <mat-icon matSuffix>phone</mat-icon>
+      <mat-hint>Include area code</mat-hint>
+    </mat-form-field> -->
+
+    <!-- <mat-form-field>
+      <mat-label>Product group</mat-label>
+      <app-tree-input-control formControlName="productGroup" required></app-tree-input-control>
+    </mat-form-field> -->
     
       <app-tree
         [data]="data"

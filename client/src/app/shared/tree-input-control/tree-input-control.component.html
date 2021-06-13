@@ -1,0 +1,8 @@
+<div role="group" class="tree-input-control"
+     [formGroup]="parts"
+     [attr.aria-labelledby]="_formField?.getLabelId()">
+  <input class="tree-input-control-element"
+         formControlName="treeItem" 
+         aria-label="Tree item"
+         #treeItem>
+</div>

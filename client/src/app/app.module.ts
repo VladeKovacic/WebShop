@@ -29,6 +29,8 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from './app.reducer';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
+import { MyTelInput } from './shared/example-tel-input-example/example-tel-input-example';
+import { TreeInputControlComponent } from './shared/tree-input-control/tree-input-control.component';
 
 
 @NgModule({
@@ -47,7 +49,9 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     ProductTableComponent,
     ProductEditModalComponent,
     SigninComponent,
-    LoginComponent
+    LoginComponent,
+    MyTelInput,
+    TreeInputControlComponent
   ],
   imports: [
     BrowserModule,
